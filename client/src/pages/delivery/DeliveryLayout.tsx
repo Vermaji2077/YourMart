@@ -44,7 +44,7 @@ export default function DeliveryLayout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <TruckIcon className="size-6 text-app-green" />
-            <span className="text-lg font-semibold text-app-green">Instacart Delivery</span>
+            <span className="text-lg font-semibold text-app-green">YourMart Delivery</span>
           </div>
 
           <div className="flex items-center gap-3">

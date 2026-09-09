@@ -43,7 +43,7 @@ const Login = () => {
         />
 
         <div className="relative text-center px-12">
-          <h2 className='text-4xl font-semibold text-white mb-4'>Welcome back to Instacart</h2>
+          <h2 className='text-4xl font-semibold text-white mb-4'>Welcome back to YourMart</h2>
           <p className='text-white/60 font-serif text-xl max-w-sm mx-auto'>Fresh gorceries and organic produced, delivered to your doorstep</p>
 
         </div>
@@ -56,7 +56,7 @@ const Login = () => {
           <div className='text-center mb-8'>
             <Link to="/" className='inline-flex items-center gap-2 mb-6'>
               <Bike className='size-8 text-app-green' />
-              <span className='text-2xl font-semibold text-app-green'>Instacart</span>
+              <span className='text-2xl font-semibold text-app-green'>YourMart</span>
             </Link>
 
             <h1 className='text-2xl font-semibold text-app-green mb-2'>

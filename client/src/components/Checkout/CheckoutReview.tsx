@@ -36,7 +36,7 @@ interface CheckoutReviewProps {
 
 export default function CheckoutReview({ address, items, handlePlaceOrder, loading, total }: CheckoutReviewProps) {
 
-  const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
+  const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "₹";
 
   return (
     <div className="bg-white rounded-2xl p-6 animate-fade-in">

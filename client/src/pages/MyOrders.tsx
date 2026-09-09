@@ -134,7 +134,7 @@ const MyOrders = () => {
                         />
                       ))}
 
-                      {order.items.length > 4 && ( // Si hay mas de 4 items se muestra + número de items restantes
+                      {order.items.length > 4 && ( 
                         <div className="size-12 sm:size-16 rounded-lg bg-app-cream flex-center text-xs font-semibold text-app-text-light">
                           +{order.items.length - 4}
                         </div>

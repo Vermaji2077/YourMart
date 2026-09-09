@@ -42,7 +42,7 @@ const NavbarComponent = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4'>
         {/* Logo */}
         <Link to="/" className='flex items-center gap-2 text-[22px] font-medium text-app-green shrink-0'>
-          <Bike size={24} /> Instacart
+          <Bike size={24} /> YourMart
         </Link>
 
         <div className='w-full flex items-center justify-end gap-4 lg:gap-10'>

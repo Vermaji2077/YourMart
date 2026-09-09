@@ -17,7 +17,7 @@ const Checkout = () => {
   const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
 
   const { items, cartTotal, clearCart } = useCart();
-  //const { user } = { user: { addresses: dummyAddressData } } // Aquí TypeScript infiere automáticamente el tipo de user a partir del objeto literal que se le estás asignando.
+  //const { user } = { user: { addresses: dummyAddressData } }
   //const user = { addresses: dummyAddressData };
   const { user } = useAuth();
 
@@ -51,20 +51,20 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     setLoading(true);
     try {
-      const orderData = {                                         
-        items: items.map((item) => ({                                   
+      const orderData = {                                                 
+        items: items.map((item) => ({                                    
           product: item.product.id,
           quantity: item.quantity,
         })),
-        shippingAddress: address,                                       
-        paymentMethod                                                 
+        shippingAddress: address,                                         
+        paymentMethod                                                    
       }
 
-      const { data } = await api.post("/orders", orderData);             
+      const { data } = await api.post("/orders", orderData);               
       console.log(data);
 
       if (data.url) {
-        window.location.href = data.
+        window.location.href = data.url;                                  
         return
       }
 

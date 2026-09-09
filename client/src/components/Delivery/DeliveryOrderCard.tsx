@@ -65,7 +65,7 @@ export default function DeliveryOrderCard({ order, tab, handleUpdateStatus, setO
             </button>
           )}
 
-          {order.status === "Out for delivery" && (
+          {order.status === "Out for Delivery" && (
             <button
               onClick={() => setOtpModal(order.id)}
               className="px-4 py-2 text-sm font-medium bg-green-50 text-green-700 rounded-xl hover:bg-green-100 transition-colors flex items-center gap-1.5"

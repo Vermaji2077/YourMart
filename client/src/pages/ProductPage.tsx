@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const ProductPage = () => {
 
-  const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$"
+  const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "₹"
   const { id } = useParams();
   const navigate = useNavigate();
   const { items, addToCart, updateQuantity, removeFromCart } = useCart();

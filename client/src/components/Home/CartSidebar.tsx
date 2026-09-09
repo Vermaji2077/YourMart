@@ -19,7 +19,7 @@ const CartSidebar = () => {
 
   if (!isCartOpen) return null;
 
-  const deliveryFee = cartTotal > 20 ? 0 : 1.99;
+  const deliveryFee = cartTotal > 100 ? 0 : 25;
   const grandTotal = cartTotal + deliveryFee;
 
   return (
@@ -139,7 +139,7 @@ const CartSidebar = () => {
 
             {deliveryFee > 0 && (
               <p className='text-xs text-app-text-light text-center'>
-                Free delivery on orders over {currency} 20!
+                Free delivery on orders over {currency} 100!
               </p>
             )}
 
