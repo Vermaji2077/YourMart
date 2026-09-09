@@ -21,12 +21,12 @@ const MyOrders = () => {
 
   const { clearCart } = useCart();
 
-  const fetchOrders = async () => {                                         // Obtenemos los pedidos del usuario desde la base de datos
+  const fetchOrders = async () => {
     setLoading(true);
     try {
-      const params = activeTab !== "all" ? `?status=${activeTab}` : "";     // Si el estado no es "all" se añade el parametro a la url
-      const { data } = await api.get(`/orders/${params}`);                  // Hacemos la peticion a la api
-      setOrders(data.orders);                                               // Guardamos los pedidos en el estado
+      const params = activeTab !== "all" ? `?status=${activeTab}` : "";   
+      const { data } = await api.get(`/orders/${params}`);                  
+      setOrders(data.orders);                                    
     } catch (error: any) {
       toast.error(error.response?.data?.message || error?.message);
     } finally {
@@ -34,14 +34,14 @@ const MyOrders = () => {
     }
   }
 
-  useEffect(() => {   // Si la url tiene el parametro 'cleartCart' limpia el carrito y la url y acontinuación carga los pedidos
+  useEffect(() => {  
     if (searchParams.get("cleartCart")) {
       clearCart();
       setSearchParams({});
       setTimeout(() => {
         fetchOrders()
       }, 2000)
-    } else {           // Si la url no tiene el parametro 'cleartCart' carga los pedidos
+    } else {          
       fetchOrders()
     }
     setLoading(false);

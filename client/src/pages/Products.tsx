@@ -12,18 +12,14 @@ import toast from 'react-hot-toast';
 
 const Products = () => {
 
-  // Estados para los parametros de la URL
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Estados para los productos, total de paginas y carga
   const [products, setProducts] = useState<Product[]>([])
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  // Estado para los filtros mobile
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // Obtenemos los parámetros de la URL
   const category = searchParams.get('category') || '';
   const organic = searchParams.get('organic') || '';
   const sort = searchParams.get('sort') || '';
@@ -59,26 +55,26 @@ const Products = () => {
     fetchProducts();
   }, [searchParams]);
 
-  const updateFilter = (key: string, value: string) => {          // Actualiza los filtros
-    const newParams = new URLSearchParams(searchParams);          // Crear una copia de los parametros actuales de la URL
-    if (value) {                                                  // Si hay un valor, establecer el parametro 
+  const updateFilter = (key: string, value: string) => {       
+    const newParams = new URLSearchParams(searchParams);          
+    if (value) {                                               
       newParams.set(key, value)
-    } else {                                                      // Si no hay valor, eliminar el parametro
+    } else {                                                  
       newParams.delete(key);
     }
-    if (key !== "page") {                                         // Si la clave no es "page", eliminar "page"
+    if (key !== "page") {                                        
       newParams.delete("page")
     }
-    setSearchParams(newParams)                                    // Actualizar los parametros de la URL
+    setSearchParams(newParams)                              
   };
 
   const clearFilters = () => {
     setSearchParams({});
   };
 
-  const activeCategory = categoriesData.find((c) => c.slug === category); // Busca la categoría activa
+  const activeCategory = categoriesData.find((c) => c.slug === category);
 
-  const hasFilters = category || organic || minPrice || maxPrice;        // Verifica si hay filtros activos
+  const hasFilters = category || organic || minPrice || maxPrice;        
 
   return (
     <div className='min-h-screen bg-app-cream'>

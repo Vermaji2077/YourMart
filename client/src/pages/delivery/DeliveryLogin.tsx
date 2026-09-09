@@ -17,7 +17,7 @@ export default function DeliveryLogin() {
     try {
       const { data } = await api.post("/delivery/login", { email, password })
 
-      // 👇 Validación para no guardar "undefined" en localStorage
+   
       if (!data.token || !data.partner) {
         throw new Error("Respuesta inválida del servidor")
       }

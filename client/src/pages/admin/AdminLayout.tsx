@@ -13,22 +13,15 @@ const AdminLinkData = [
 ];
 
 /**
- * Componente de diseño (layout) para la sección de administración.
- * Estructura la interfaz en una barra lateral de navegación responsiva 
- * (con indicadores de ruta activa) y un área principal dinámica.
- * Incluye un Navbar superior que se oculta automáticamente en móviles.
- * 
  * @component
  * @example
- * // Se utiliza como layout contenedor en React Router
- * <Route path="/admin" element={<AdminLayout />} />
- * 
- * @param {Object} props - Propiedades del componente.
- * @param {React.ReactNode} [props.children] - Contenido renderizado dinámicamente por <Outlet />.
+
+ * @param {Object} props 
+ * @param {React.ReactNode} [props.children] 
  */
 export default function AdminLayout() {
 
-  const { user } = useAuth();   // Solo los administradores pueden acceder a esta ruta
+  const { user } = useAuth();   
   if (!user?.isAdmin) {
     return <Navigate to="/" replace />
   }
@@ -52,8 +45,6 @@ export default function AdminLayout() {
               <NavLink
                 key={link.to}
                 to={link.to}
-                // Nota: 'end' es crucial aquí. Sin él, el enlace "Dashboard" 
-                // permanecería activo (iluminado) en todas las subrutas de /admin/*
                 end={true}
                 className={({ isActive }) => `flex items-center gap-3 p-2.5 rounded-md text-sm transition-colors ${isActive
                   ? "bg-app-green text-white"

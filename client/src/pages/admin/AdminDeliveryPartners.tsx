@@ -5,11 +5,6 @@ import Loading from "../../components/Loading";
 import api from "../../config/api";
 import toast from "react-hot-toast";
 
-/**
- * Panel de administración para gestionar socios de entrega (repartidores).
- * Muestra una cuadrícula con los repartidores, sus datos de contacto y permite
- * cambiar su estado (Activo/Inactivo). Incluye un modal para registrar nuevos socios.
- */
 export default function AdminDeliveryPartners() {
   const [partners, setPartners] = useState<DeliveryPartner[]>([]);
   const [loading, setLoading] = useState(true);

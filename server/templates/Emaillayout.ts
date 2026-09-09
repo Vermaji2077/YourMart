@@ -3,13 +3,7 @@ type GradientColors = {
     to: string;
 };
 
-/**
- * Wrapper común para todos los emails: card redondeado con header
- * de gradiente y un bloque de contenido inyectable.
- *
- * Reutilizado por lowStockAlert y monthlyOffers, que solo cambian
- * el color del gradiente, el título y el contenido interior.
- */
+
 export function emailLayout({
     title,
     subtitle,

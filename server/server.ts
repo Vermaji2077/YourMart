@@ -19,8 +19,8 @@ app.post("/api/stripe", express.raw({ type: "application/json" }), stripeWebhook
 // Middleware
 app.use(cors({
     origin: [
-        'http://localhost:5173',                              // Desarrollo local
-        'https://astonishing-cuchufli-ed0e98.netlify.app',   // Producción - Netlify
+        'http://localhost:5173',                        
+        'https://astonishing-cuchufli-ed0e98.netlify.app', 
     ],
     credentials: true,
 }));

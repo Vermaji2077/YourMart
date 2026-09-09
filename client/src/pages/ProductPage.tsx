@@ -31,10 +31,10 @@ const ProductPage = () => {
     api.get(`/products/${id}`)
       .then(({ data }) => {
         setProduct(data.product);
-        return api.get(`/products?category=${data.product.category}`);     // Obtiene los productos de la misma categoría
+        return api.get(`/products?category=${data.product.category}`);    
       })
       .then(({ data }) => {
-        const related = data.products.filter((p: Product) => p.id !== id); // De esos productos se muestran los que no coincidan con la id del producto actual
+        const related = data.products.filter((p: Product) => p.id !== id); 
         setRelatedProducts(related);
         setLoading(false);
       })
@@ -52,23 +52,23 @@ const ProductPage = () => {
   if (loading) return <Loading />
   if (!product) return null
 
-  const cartItem = items.find((item) => item.product.id === product.id);     // Se usa el id del producto para buscar si ya existe en el carrito
-  const inCart = !!cartItem;                                                   // Se convierte a boolean el resultado de buscar el producto en el carrito (True o False)
-  const displayQuantity = inCart ? cartItem.quantity : localQuantity           // Se muestra la cantidad del producto en el carrito o la cantidad local
-  const categoryLabel = product.category.replace(/-/g, " ");                   // Se reemplaza los guiones por espacios para mostrar la categoría
+  const cartItem = items.find((item) => item.product.id === product.id);    
+  const inCart = !!cartItem;                                                   
+  const displayQuantity = inCart ? cartItem.quantity : localQuantity     
+  const categoryLabel = product.category.replace(/-/g, " ");                  
 
   const handleMinus = () => {
-    if (inCart) {                                                                      // Si el producto está en el carrito
-      if (cartItem.quantity > 1) updateQuantity(product.id, cartItem.quantity - 1)     // Actualiza la cantidad del producto en el carrito
-      else removeFromCart(product.id)                                                  // Si no, elimina el producto del carrito
+    if (inCart) {                                                          
+      if (cartItem.quantity > 1) updateQuantity(product.id, cartItem.quantity - 1)    
+      else removeFromCart(product.id)                                        
     } else {
-      setLocalQuantity(Math.max(1, localQuantity - 1))                                 // Reduce la cantidad local del producto
+      setLocalQuantity(Math.max(1, localQuantity - 1))                            
     }
   }
 
   const handlePlus = () => {
-    if (cartItem) updateQuantity(product.id, cartItem.quantity + 1);                  // Si el producto está en el carrito, actualiza la cantidad
-    else setLocalQuantity(localQuantity + 1)                                          // Si no, aumenta la cantidad local
+    if (cartItem) updateQuantity(product.id, cartItem.quantity + 1);                  
+    else setLocalQuantity(localQuantity + 1)                                     
   }
 
   return (

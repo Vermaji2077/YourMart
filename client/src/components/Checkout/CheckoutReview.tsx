@@ -3,9 +3,6 @@ import type { Address } from "../../types";
 
 /**
  * CheckoutReview Component
- * 
- * Paso final del checkout. Muestra un resumen completo del pedido antes de confirmarlo.
- *
  * Renders the final review step within the checkout flow.
  * Displays a summary of the delivery address and ordered items,
  * along with the total price and a confirmation button to place the order.

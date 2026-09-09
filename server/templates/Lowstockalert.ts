@@ -8,11 +8,7 @@ type LowStockProduct = {
     stock: number | null;
 };
 
-/**
- * Email de alerta de stock bajo, enviado a los admins cuando un
- * producto cae por debajo de LOW_STOCK_THRESHOLD.
- * Se usa dentro de checkLowStock (jobs/inngest.ts).
- */
+
 export function lowStockAlertTemplate(product: LowStockProduct) {
     const bodyHtml = `
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">

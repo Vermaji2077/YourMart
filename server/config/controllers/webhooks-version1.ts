@@ -9,7 +9,7 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 export const stripeWebhook = async (request: Request, response: Response) => {
   let event;
   if (endpointSecret) {
-    // Get the signature sent by Stripe
+
     const signature = request.headers['stripe-signature'];
     try {
       event = stripe.webhooks.constructEvent(

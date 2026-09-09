@@ -8,10 +8,10 @@ import { prisma } from "../prisma.js"
 
 export const getAddresses = async (req: Request, res: Response) => {
 	const addresses = await prisma.address.findMany({
-		where: { userId: req.user!.id },                                   // Se filtran solo las direcciones del usuario autenticado.
-		orderBy: { createdAt: "asc" }                                      // Se ordenan por fecha de creación ascendente para que la más antigua aparezca primero.
+		where: { userId: req.user!.id },                                  
+		orderBy: { createdAt: "asc" }                                     
 	});
-	res.json({ addresses });                                             // Se envuelve en { addresses } para consistencia con el resto de endpoints.
+	res.json({ addresses });                                 
 }
 
 
@@ -21,21 +21,21 @@ export const getAddresses = async (req: Request, res: Response) => {
 export const addAddress = async (req: Request, res: Response) => {
 	const { label, address, city, state, zip, isDefault, lat, lng } = req.body;
 
-	const currentAddresses = await prisma.address.findMany({                                                 // Se buscan las direcciones existentes del usuario.
+	const currentAddresses = await prisma.address.findMany({                                            
 		where: { userId: req.user!.id }
 	})
 
-	let makeDefault = isDefault;                                                                             // Se inicializa la variable makeDefault con el valor de isDefault.
-	if (currentAddresses.length === 0) makeDefault = true;                                                   // Si no hay direcciones existentes, se establece makeDefault en true.
+	let makeDefault = isDefault;                                                                            
+	if (currentAddresses.length === 0) makeDefault = true;                                         
 
-	if (makeDefault) {                                                                                       // Si makeDefault es true, se actualizan todas las direcciones existentes para establecerlas como no predeterminadas.
+	if (makeDefault) {                                                                                      
 		await prisma.address.updateMany({
 			where: { userId: req.user!.id },
 			data: { isDefault: false }
 		})
 	}
 
-	await prisma.address.create({                                                                            // Se crea un nuevo registro de dirección con los datos proporcionados.
+	await prisma.address.create({                                                                           
 		data: {
 			userId: req.user!.id,
 			label,
@@ -44,17 +44,17 @@ export const addAddress = async (req: Request, res: Response) => {
 			state,
 			zip,
 			isDefault: makeDefault,
-			lat: lat != null ? Number(lat) : 0,                                                              // Las coordenadas son opcionales. Los navegadores se bloquean muchas veces
+			lat: lat != null ? Number(lat) : 0,                                                             
 			lng: lng != null ? Number(lng) : 0
 		}
 	})
 
-	const addresses = await prisma.address.findMany({                                                        // Se buscan todas las direcciones del usuario autenticado.
+	const addresses = await prisma.address.findMany({                                                     
 		where: { userId: req.user!.id },
-		orderBy: { createdAt: "asc" }                                                                        // Se ordenan por fecha de creación ascendente para que la más antigua aparezca primero.
+		orderBy: { createdAt: "asc" }                                                                       
 	})
 
-	res.status(201).json({ addresses })                                                                      // Se devuelve el array de direcciones.
+	res.status(201).json({ addresses })                                                                     
 }
 
 // Update address
@@ -81,16 +81,16 @@ export const updateAddress = async (req: Request, res: Response) => {
 
 	try {
 		await prisma.address.update({
-			where: { id: req.params.id as string },                                                                   // Se actualiza la dirección con la data recibida para el id proporcionado.
+			where: { id: req.params.id as string },                                                              
 			data
 		})
 	} catch (error) {
 		return res.status(404).json({ message: "Address not found" })
 	}
 
-	const addresses = await prisma.address.findMany({                                                            // Se buscan todas las direcciones (actualizadas) del usuario autenticado.
+	const addresses = await prisma.address.findMany({                                                          
 		where: { userId: req.user!.id },
-		orderBy: { createdAt: "asc" }                                                                              // Se ordenan por fecha de creación ascendente para que la más antigua aparezca primero.
+		orderBy: { createdAt: "asc" }                                                                     
 	})
 
 	res.json({
@@ -110,9 +110,9 @@ export const deleteAddress = async (req: Request, res: Response) => {
 		console.log(error.message)
 	}
 
-	const addresses = await prisma.address.findMany({                                                            // Se buscan todas las direcciones (actualizadas) del usuario autenticado.
+	const addresses = await prisma.address.findMany({                                                          
 		where: { userId: req.user!.id },
-		orderBy: { createdAt: "asc" }                                                                              // Se ordenan por fecha de creación ascendente para que la más antigua aparezca primero.
+		orderBy: { createdAt: "asc" }                                                                         
 	})
 
 	res.json({

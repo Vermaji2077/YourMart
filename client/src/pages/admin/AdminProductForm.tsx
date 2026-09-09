@@ -7,10 +7,6 @@ import api from "../../config/api";
 import toast from "react-hot-toast";
 
 /**
- * Formulario de administración para crear nuevos productos o editar existentes.
- * Gestiona el estado del formulario, la vista previa de imágenes y simula la 
- * carga de datos iniciales si se detecta un ID en la URL (modo edición).
- *
  * @component
  */
 
@@ -176,9 +172,7 @@ export default function AdminProductForm() {
                 <div className="flex items-center gap-4">
                   {(imageFile || formData.image) && (
                     <div className="size-16 rounded-lg border border-zinc-200 overflow-hidden shrink-0 bg-app-cream">
-                      {/* Curiosidad: URL.createObjectURL crea una referencia en memoria. 
-                      En una app real de larga duración, conviene usar URL.revokeObjectURL al desmontar el componente 
-                      para evitar fugas de memoria. */}
+                      {}
                       <img
                         src={
                           imageFile

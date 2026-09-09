@@ -6,11 +6,6 @@ import Loading from "../../components/Loading";
 import api from "../../config/api";
 
 /**
- * Vista de administración para gestionar pedidos.
- * Muestra una tabla con detalles del cliente, total, estado y socio de entrega.
- * Incluye funcionalidad para cambiar el estado del pedido y un modal para asignar
- * socios de entrega disponibles de forma dinámica.
- *
  * @component
  */
 export default function AdminOrders() {
@@ -50,14 +45,14 @@ export default function AdminOrders() {
   }, []);
 
   const handleStatusChange = async (id: string, newStatus: string) => {
-    // backup para rollback si falla
-    const previous = orders;                                                                   // Antes de la petición → guardo una copia del array actual en previous.
-    setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o)));     // Actualizo el estado local inmediatamente, simulando que todo va bien.
+    
+    const previous = orders;                                                                  
+    setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o)));    
 
     try {
-      await api.put(`/orders/${id}/status`, { status: newStatus });                            // Hago el PUT al servidor. 
-      toast.success("Order status updated successfully");                                      // Si todo va bien → toast OK. → no uso previous, el state local ya está bien. 
-    } catch (error: any) {                                                                     // Si falla → revierto el state al snapshot: setOrders(previous). → toast error.
+      await api.put(`/orders/${id}/status`, { status: newStatus });                         
+      toast.success("Order status updated successfully");                                   
+    } catch (error: any) {                                                                    
       setOrders(previous);
       toast.error(error.response?.data?.message || "Failed to update order status");
     }
@@ -140,7 +135,7 @@ export default function AdminOrders() {
                           </div>
                         </div>
                       ) : (
-                        // Si no hay delivery partner asignado se muestra un boton que abre un modal para asignarlo 
+                    
                         <button
                           onClick={() => {
                             setAssignModal(order.id);
@@ -158,9 +153,7 @@ export default function AdminOrders() {
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        // Curiosidad: 'border-r-8 border-transparent' es un truco de CSS para crear 
-                        // un padding derecho invisible que evita que el texto largo se superponga 
-                        // con la flecha nativa del dropdown, manteniendo la legibilidad.
+                      
                         className={`
                           px-3 py-1.5 rounded-lg text-xs font-semibold border-r-8 border-transparent outline-none cursor-pointer leading-tight 
                           ${statusColors[order.status] || "bg-zinc-100 text-zinc-800"}

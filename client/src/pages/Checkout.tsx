@@ -51,20 +51,20 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     setLoading(true);
     try {
-      const orderData = {                                                 // Creamos el objeto orderData
-        items: items.map((item) => ({                                     // y lo rellenaremos con el mapeo de items del carrito
+      const orderData = {                                         
+        items: items.map((item) => ({                                   
           product: item.product.id,
           quantity: item.quantity,
         })),
-        shippingAddress: address,                                         // Le añadiremos la dirección del usuario logueado 
-        paymentMethod                                                     // y el método de pago seleccionado
+        shippingAddress: address,                                       
+        paymentMethod                                                 
       }
 
-      const { data } = await api.post("/orders", orderData);               // Hacemos la petición al backend
+      const { data } = await api.post("/orders", orderData);             
       console.log(data);
 
       if (data.url) {
-        window.location.href = data.url;                                  // Si en el backend hay url(sesion de pago en una pasarela de pagos), redirigimos al usuario a la pasarela de pago
+        window.location.href = data.
         return
       }
 

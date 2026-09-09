@@ -7,11 +7,7 @@ import api from "../../config/api";
 import toast from "react-hot-toast";
 
 /**
- * Vista de administración que lista todos los productos en una tabla.
- * Muestra información clave como imagen, nombre, categoría, precio y estado del stock,
- * junto con acciones rápidas para editar o marcar un producto como agotado.
- *
- * @component.
+ * @component
  */
 
 
@@ -39,7 +35,6 @@ export default function AdminProducts() {
 
   const handleMarkOutOfStock = async (id: string, name: string) => {
     if (!window.confirm(`Are you sure you want to mark "${name}" as out of stock?`)) return;
-    // Llamada a la API para actualizar el stock.
     try {
       await api.delete(`/products/${id}`)
       toast.success("Product marked as out of stock")

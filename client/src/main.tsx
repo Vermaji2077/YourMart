@@ -9,7 +9,7 @@ import { AuthProvider } from './context/AuthContext.tsx'
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <AuthProvider>
-      <CartProvider>                    {/* Se envuelve la aplicacion en el provider del carrito */}
+      <CartProvider>                   
         <App />
       </CartProvider>
     </AuthProvider>

@@ -22,38 +22,36 @@ const OrderTracking = () => {
   } | null>(null);
 
   useEffect(() => {
-    api.get(`/orders/${id}`)                     // Obtenemos los pedidos correspondientes a una order
-      .then((res) => setOrder(res.data.order))   // Guardamos el pedido en el estado
-      .catch(() => navigate("/orders"))          // Si la peticion falla navegamos a la lista de pedidos
-      .finally(() => setLoading(false))          // Finalmente detenemos la carga
+    api.get(`/orders/${id}`)                    
+      .then((res) => setOrder(res.data.order))  
+      .catch(() => navigate("/orders"))          
+      .finally(() => setLoading(false))         
   }, [id, navigate]);
 
-  // Live location every 10 secs
   useEffect(() => {
     if (!order || ["Delivered", "Cancelled", "Placed"].includes(order.status)) return;
 
     const fetchLocation = async () => {
       try {
-        const { data } = await api.get(`/orders/${id}/location`)                                        // Trae la ubicación del repartidor
-        if (data.liveLocation?.lat && data.liveLocation?.lng && data.liveLocation?.updatedAt) {         // Si hay ubicación
-          setLiveLocation({                                                                             // Actualizamos el estado
+        const { data } = await api.get(`/orders/${id}/location`)                                
+        if (data.liveLocation?.lat && data.liveLocation?.lng && data.liveLocation?.updatedAt) {       
+          setLiveLocation({                                                                    
             lat: data.liveLocation.lat,
             lng: data.liveLocation.lng
           })
         }
 
-        // Also update order status if it changed
-        if (data.status && data.status !== order.status) {                                              // También actualizamos el estado del pedido si cambió
-          setOrder(prev => prev ? { ...prev, status: data.status } : prev)                              // y guardamos el nuevo estado en el estado
+        if (data.status && data.status !== order.status) {                                            
+          setOrder(prev => prev ? { ...prev, status: data.status } : prev)                          
         }
       } catch {
 
       }
     }
 
-    fetchLocation();                                                                                    // Llamamos a la función para obtener la ubicación
-    const interval = setInterval(fetchLocation, 10000);                                                 // Y la llamamos cada 10 segundos
-    return () => clearInterval(interval);                                                               // Limpiamos el intervalo cuando el componente se desmonta
+    fetchLocation();                                                                                  
+    const interval = setInterval(fetchLocation, 10000);                                  
+    return () => clearInterval(interval);                                                              
 
   }, [id, order?.status])
 

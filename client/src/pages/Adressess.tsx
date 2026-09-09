@@ -47,12 +47,12 @@ const Adressess = () => {
     const locationPromise = new Promise<{ lat: number | null, lng: number | null }>((resolve) => {
       navigator.geolocation.getCurrentPosition(
         (position) => resolve({ lat: position.coords.latitude, lng: position.coords.longitude }),
-        () => resolve({ lat: null, lng: null }),   // En caso de error, continuar sin coords
+        () => resolve({ lat: null, lng: null }),   
         { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
       );
     });
 
-    // Hard timeout: si el navegador no responde en 9s, continuamos sin coords
+  
     const timeoutPromise = new Promise<{ lat: null, lng: null }>((resolve) =>
       setTimeout(() => resolve({ lat: null, lng: null }), 9000)
     );
@@ -64,21 +64,21 @@ const Adressess = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const coords = await getLocation();                                        // Obtenemos la ubicacion del usuario
-      const payload = { ...form, ...coords };                                    // Creamos el payload con los datos del formulario y la ubicación
+      const coords = await getLocation();                                       
+      const payload = { ...form, ...coords };                                    
 
-      if (editingId) {                                                           // Si hay un ID de edición
-        const { data } = await api.put(`/addresses/${editingId}`, payload)       // Actualizamos la dirección en bd
-        setAddresses(data.addresses)                                             // Actualizamos el estado 
-        updateUser({ addresses: data.addresses })                                // Actualizamos el usuario en el estado localstorage
-        toast.success("Address updated successfully")                            // Mostramos un mensaje de éxito
-      } else {                                                                   // Si no hay un ID de edición
-        const { data } = await api.post(`/addresses`, payload)                   // Creamos la dirección
-        setAddresses(data.addresses)                                             // Actualizamos el estado local
-        updateUser({ addresses: data.addresses })                                // Actualizamos el usuario en el estado localstorage
+      if (editingId) {                                                         
+        const { data } = await api.put(`/addresses/${editingId}`, payload)       
+        setAddresses(data.addresses)                                      
+        updateUser({ addresses: data.addresses })                         
+        toast.success("Address updated successfully")                    
+      } else {                                                           
+        const { data } = await api.post(`/addresses`, payload)                   
+        setAddresses(data.addresses)                                
+        updateUser({ addresses: data.addresses })                               
         toast.success("Address added successfully")
       }
-      resetForm();                                                               // Reiniciamos el formulario
+      resetForm();                                                       
     } catch (error: any) {
       const msg = error?.response?.data?.message || error?.message || "Unexpected error";
       toast.error(msg);

@@ -4,11 +4,6 @@ import { useEffect, useState } from "react";
 import type { DeliveryPartner } from "../../types";
 
 
-/**
- * Layout principal para la sección de socios de entrega (repartidores).
- * Proporciona una barra superior con el nombre del repartidor y botón de cierre de sesión,
- * junto con un área principal dinámica para las vistas de delivery.
- */
 
 
 export default function DeliveryLayout() {
@@ -19,7 +14,6 @@ export default function DeliveryLayout() {
     const saved = localStorage.getItem("delivery_partner");
     const token = localStorage.getItem("delivery_token");
 
-    // 👇 Validar que existan y no sean cadenas inválidas
     if (!saved || !token || saved === "undefined" || saved === "null") {
       navigate("/delivery/login");
       return;

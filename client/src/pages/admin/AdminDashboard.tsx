@@ -14,14 +14,8 @@ interface Stats {
 }
 
 /**
- * Panel de control administrativo que muestra métricas clave (pedidos, usuarios, productos, stock)
- * y una tabla con los pedidos más recientes. Gestiona un estado de carga inicial y formatea
- * la moneda dinámicamente según variables de entorno.
- *
  * @component
- * @param {Object} props - Propiedades del componente.
- * @description Componente autónomo sin props externas. Obtiene la moneda desde `VITE_CURRENCY_SYMBOL` 
- * y los datos de visualización desde assets locales (mock data).
+ * @param {Object} props 
  */
 export default function AdminDashboard() {
 

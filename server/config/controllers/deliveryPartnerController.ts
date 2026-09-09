@@ -24,7 +24,7 @@ export const loginPartner = async (req: Request, res: Response) => {
   }
 
   const partner = await prisma.deliveryPartner.findUnique({
-    where: {                  // busca en la tabla deliveryPartner por el email del partner (pasado a minuscula para evitar errores de capitalizacion)
+    where: {                 
       email: email.toLowerCase()
     }
   })
@@ -37,28 +37,27 @@ export const loginPartner = async (req: Request, res: Response) => {
     return res.status(403).json({ message: "Your account is not active" })
   }
 
-  const isMatch = await bcrypt.compare(password, partner.password);                 // compara la contraseña en texto plano con el hash en la bd
+  const isMatch = await bcrypt.compare(password, partner.password);                
   if (!isMatch) {
     return res.status(401).json({ message: "Invalid email or password" })
   }
 
-  const token = generateToken(partner.id);                                          // genera el token
-  const { password: _, ...partnerData } = partner                                   // spread operator para extraer el password y guardar el resto en partnerData
+  const token = generateToken(partner.id);                       
+  const { password: _, ...partnerData } = partner                                 
 
-  res.json({ token, partner: partnerData })                                         // devuelve el partnerData con el nuevo token
+  res.json({ token, partner: partnerData })                                      
 }
 
 // Get assigned deliveries
 // GET /api/delivery/my-deliveries
 export const getMyDeliveries = async (req: Request, res: Response) => {
-  const { status } = req.query;                                                     // extrae el status del query
+  const { status } = req.query;                                    
 
-  const where: any = { deliveryPartnerId: req.partner!.id }                         // crea un objeto where con el id del partner
-
-  if (status === "active") {                                                        // si el status es active
-    where.status = { in: ["Assigned", "Packed", "Out for delivery"] }               // filtra las entregas que esten en estado Assigned, Packed u Out for delivery
-  } else if (status === "completed") {                                              // si el status es completed
-    where.status = { in: ["Delivered", "Cancelled"] }                               // filtra las entregas que esten en estado Delivered o Cancelled
+  const where: any = { deliveryPartnerId: req.partner!.id }                      
+  if (status === "active") {                                       
+    where.status = { in: ["Assigned", "Packed", "Out for delivery"] }           
+  } else if (status === "completed") {                                        
+    where.status = { in: ["Delivered", "Cancelled"] }                               
   }
 
   const orders = await prisma.order.findMany({
@@ -67,7 +66,7 @@ export const getMyDeliveries = async (req: Request, res: Response) => {
     orderBy: { createdAt: "desc" }
   })
 
-  res.json({ orders })                                                              // devuelve las ordenes
+  res.json({ orders })                                                          
 }
 
 // Get single delivery detail

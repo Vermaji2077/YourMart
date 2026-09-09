@@ -9,10 +9,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 /**
- * Panel de control para socios de entrega (repartidores).
- * Gestiona la visualización de pedidos activos y completados mediante pestañas, 
- * permite compartir la ubicación en tiempo real y orquesta los modales para 
- * confirmar entregas (vía OTP) o cancelar pedidos.
  */
 
 const API_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000/api"
@@ -61,10 +57,9 @@ export default function DeliveryDashboard() {
     fetchOrders();
   }, [tab]);
 
-  // Send location every 10s for active deliveries
-  useEffect(() => {                                                                                           // El rastreo solo se activa si se cumplen dos condiciones al inicio del useEffect:
-    const activeOrders = orders.filter((o) => ["Assigned", "Packed", "Out for delivery"].includes(o.status))  // Debe haber al menos un pedido en estado activo y el usuario debe haber habilitado el botón de compartir ubicación.
-    if (activeOrders.length === 0 || !tracking) {                                                             // Si no se cumple alguna de estas condiciones, el efecto se detiene.
+  useEffect(() => {                                                                                        
+    const activeOrders = orders.filter((o) => ["Assigned", "Packed", "Out for delivery"].includes(o.status))  
+    if (activeOrders.length === 0 || !tracking) {                                                           
       if (watchIdRef.current !== null) {
         navigator.geolocation.clearWatch(watchIdRef.current);
         watchIdRef.current = null
@@ -72,22 +67,21 @@ export default function DeliveryDashboard() {
       return
     }
 
-    const sendLocation = async (pos: GeolocationPosition) => {                                                // Función que toma la posición actual (lat, lng) y la envía a la API.
-      const { latitude: lat, longitude: lng } = pos.coords                                                      // Descompresión de la posición actual.
-      activeOrders.forEach((order) => {                                                                       // Itera sobre cada pedido activo.
-        axios.put(`${API_URL}/delivery/my-deliveries/${order.id}/location`, { lat, lng }, getAuthHeaders())     // Envía la posición a la API.
+    const sendLocation = async (pos: GeolocationPosition) => {                                            
+      const { latitude: lat, longitude: lng } = pos.coords                                                    
+      activeOrders.forEach((order) => {                                                           
+        axios.put(`${API_URL}/delivery/my-deliveries/${order.id}/location`, { lat, lng }, getAuthHeaders())   
           .catch(() => { })
       })
     }
 
-    watchIdRef.current = navigator.geolocation.watchPosition(                                                 // Inicia el seguimiento de la posición del usuario con una precisión alta y un intervalo de actualización de 10 segundos.
+    watchIdRef.current = navigator.geolocation.watchPosition(                                              
       sendLocation,
       (error) => console.log("Error tracking location", error),
       { enableHighAccuracy: true, maximumAge: 10000 }
     )
 
-    // Also send on interval for more consistent updates
-    const interval = setInterval(() => {                                                                      // Se establece un intervalo de 10 segundos para enviar actualizaciones de posición adicionales.
+    const interval = setInterval(() => {                                                                    
       navigator.geolocation.getCurrentPosition(
         sendLocation,
         () => { },
@@ -106,7 +100,7 @@ export default function DeliveryDashboard() {
 
 
 
-  const handleUpdateStatus = async (orderId: string, status: string) => {                                      // Función que actualiza el estado de un pedido.
+  const handleUpdateStatus = async (orderId: string, status: string) => {                                   
     try {
       await axios.put(`${API_URL}/delivery/my-deliveries/${orderId}/status`, { status }, getAuthHeaders());
       toast.success(`Status updated to ${status}`);
@@ -116,7 +110,7 @@ export default function DeliveryDashboard() {
     }
   };
 
-  const handleComplete = async () => {                                                                          // Función que completa un pedido.
+  const handleComplete = async () => {                      
     if (!otpModal || !otp) return;
     setSubmitting(true);
     try {

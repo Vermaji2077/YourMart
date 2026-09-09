@@ -3,10 +3,6 @@ import type { Dispatch, SetStateAction } from "react";
 
 /**
  * CheckoutPayment Component
- * 
- * Componente del paso de pago dentro del flujo de checkout.
- * Permite al usuario elegir cómo quiere pagar antes de revisar el pedido.
- *
  * Renders the payment method selection step within the checkout flow.
  * Displays available payment options as selectable radio cards and allows
  * the user to proceed to the order review step.

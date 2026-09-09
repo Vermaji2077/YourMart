@@ -14,11 +14,7 @@ type MonthlyOffersInput = {
     shopUrl: string;
 };
 
-/**
- * Email de ofertas mensuales ("Fresh Picks Just For You!").
- * Se llama una vez por usuario dentro del batch de envío en
- * sendMonthlyOffers (jobs/inngest.ts).
- */
+
 export function monthlyOffersTemplate({ userName, deals, shopUrl }: MonthlyOffersInput) {
     const bodyHtml = `
     <p style="margin: 0 0 20px; font-size: 15px; color: #374151;">

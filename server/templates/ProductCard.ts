@@ -5,10 +5,7 @@ type ProductCardInput = {
     originalPrice?: number | null;
 };
 
-/**
- * Tarjeta individual de producto, pensada para ir dentro de un <td>
- * de la tabla de ofertas mensuales.
- */
+
 export function productCard(p: ProductCardInput) {
     const hasDiscount = !!p.originalPrice && p.originalPrice > p.price;
 
@@ -34,10 +31,7 @@ export function productCard(p: ProductCardInput) {
   `;
 }
 
-/**
- * Agrupa un array de productos en filas de N columnas (por defecto 3)
- * y devuelve el HTML de la tabla completa con las tarjetas dentro.
- */
+
 export function productGrid(products: ProductCardInput[], columns = 3) {
     const rows: ProductCardInput[][] = [];
     for (let i = 0; i < products.length; i += columns) {

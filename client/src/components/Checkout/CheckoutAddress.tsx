@@ -9,13 +9,7 @@ import { Link } from 'react-router-dom';
  * @param {Function} props.setAddress - Callback to update the selected address state.
  * @param {Function} props.setStep - Callback to navigate to the next checkout step.
  * @returns 
- * 
- * Se encarga de que el usuario seleccione o añada una dirección de entrega 
- * antes de pasar al paso de pago.
- * 
- * Renders the delivery address selection step within the checkout flow.
- * Displays the user's saved addresses as selectable cards and allows
- * navigation to add a new address or proceed to the payment step.
+
  */
 
 

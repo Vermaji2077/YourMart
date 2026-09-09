@@ -6,12 +6,12 @@ import Loading from "./Loading";
 
 const ProtectedRoute = () => {
 
-  const { user, loading } = useAuth();         // Obtenemos el usuario y el loading del contexto
-  if (loading) return <Loading />              // Si esta cargando, muestra el componente Loading
-  if (!user) return <Navigate to="/login" />   // Si no hay usuario, redirige al login
+  const { user, loading } = useAuth();       
+  if (loading) return <Loading />             
+  if (!user) return <Navigate to="/login" />   
 
   return (
-    <Outlet />                                 // Si hay usuario y no esta cargando, muestra el contenido del outlet
+    <Outlet />                                
   )
 }
 
