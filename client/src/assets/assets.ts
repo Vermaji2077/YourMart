@@ -73,22 +73,22 @@ export const footerData = {
         {
             title: "Customer Service",
             links: [
-                { label: "My Account", to: "#" },
-                { label: "Order History", to: "#" },
-                { label: "Addresses", to: "#" },
+                { label: "My Account", to: "#/" },
+                { label: "Order History", to: "#/orders" },
+                { label: "Addresses", to: "#/addresses" },
                 { label: "Help Center", href: "#" },
             ],
         },
     ],
 
     contact: [
-        { icon: MapPinIcon, text: "123 Green Valley Rd, Portland" },
-        { icon: PhoneIcon, text: "+1 (111) 123-4567" },
+        { icon: MapPinIcon, text: "Vadodar, Gujarat" },
+        { icon: PhoneIcon, text: "+91 1234567890" },
         { icon: MailIcon, text: "hello@example.com" },
     ],
 
     bottom: {
-        copyright: "© 2026 Greatstack. All rights reserved.",
+        copyright: "© 2026 Nishant Verma. All rights reserved.",
         links: [
             { label: "Privacy Policy", href: "#" },
             { label: "Terms of Service", href: "#" },
