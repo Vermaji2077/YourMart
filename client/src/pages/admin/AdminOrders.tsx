@@ -31,7 +31,6 @@ export default function AdminOrders() {
   const [otpModal, setOtpModal] = useState<string | null>(null);
   const [otp, setOtp] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
   // =========================
   // FETCH ORDERS
   // =========================

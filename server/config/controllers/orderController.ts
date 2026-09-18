@@ -319,58 +319,58 @@ export const createOrder = async (
 // GET USER ORDERS
 // GET /api/orders
 // ======================================================
-
 export const getUserOrders = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const { status } = req.query;
+    const userId = req.user!.id;
 
-    const where: any = {
-      userId: req.user!.id,
+    console.log("=================================");
+    console.log("GET USER ORDERS");
+    console.log("User ID:", userId);
 
-      NOT: [
-        {
-          paymentMethod: "card",
-          isPaid: false,
-        },
-      ],
-    };
+    const orders = await prisma.order.findMany({
+      where: {
+        userId,
+      },
 
-    if (
-      status &&
-      status !== "all"
-    ) {
-      where.status = status;
-    }
-
-    const orders =
-      await prisma.order.findMany({
-        where,
-
-        include: {
-          deliveryPartner: {
-            select: {
-              name: true,
-              phone: true,
-            },
+      include: {
+        deliveryPartner: {
+          select: {
+            name: true,
+            phone: true,
           },
         },
+      },
 
-        orderBy: {
-          createdAt: "desc",
-        },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    console.log("Orders found:", orders.length);
+
+    orders.forEach((order) => {
+      console.log({
+        id: order.id,
+        paymentMethod: order.paymentMethod,
+        isPaid: order.isPaid,
+        status: order.status,
       });
+    });
+
+    console.log("=================================");
 
     return res.json({
       orders,
     });
   } catch (error: any) {
-    return res.status(400).json({
+    console.error("Get user orders error:", error);
+
+    return res.status(500).json({
       message:
-        error.message ??
-        "Could not get orders",
+        error.message ?? "Could not get orders",
     });
   }
 };
@@ -672,52 +672,53 @@ export const verifyDeliveryOtp = async (
 // GET ALL ORDERS
 // GET /api/orders/all
 // ======================================================
-
 export const getAllOrders = async (
   req: Request,
   res: Response
 ) => {
   try {
-    const orders =
-      await prisma.order.findMany({
-        where: {
-          NOT: [
-            {
-              paymentMethod: "card",
-              isPaid: false,
-            },
-          ],
-        },
-
-        include: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-            },
-          },
-
-          deliveryPartner: {
-            select: {
-              name: true,
-              phone: true,
-            },
+    const orders = await prisma.order.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
           },
         },
 
-        orderBy: {
-          createdAt: "desc",
+        deliveryPartner: {
+          select: {
+            name: true,
+            phone: true,
+          },
         },
+      },
+
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    console.log("ADMIN ORDERS:", orders.length);
+
+    orders.forEach((order) => {
+      console.log({
+        id: order.id,
+        paymentMethod: order.paymentMethod,
+        isPaid: order.isPaid,
+        status: order.status,
       });
+    });
 
     return res.json({
       orders,
     });
   } catch (error: any) {
-    return res.status(400).json({
+    console.error("Get all orders error:", error);
+
+    return res.status(500).json({
       message:
-        error.message ??
-        "Could not get orders",
+        error.message ?? "Could not get orders",
     });
   }
 };

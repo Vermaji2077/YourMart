@@ -38,7 +38,7 @@ const Checkout = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("card");
 
-  const deliveryFee = cartTotal > 20 ? 0 : 1.99;
+  const deliveryFee = cartTotal > 100 ? 0 : 25;
   const tax = cartTotal * 0.08;
   const total = cartTotal + deliveryFee + tax;
 
