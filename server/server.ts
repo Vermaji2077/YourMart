@@ -18,12 +18,18 @@ app.post("/api/stripe", express.raw({ type: "application/json" }), stripeWebhook
 
 // Middleware
 app.use(cors({
-    origin: [
-        'https://your-mart-by-nish.vercel.app',
-        'https://your-mart-f8bvvk76f-vermaji2077.vercel.app',
-        'http://localhost:5173',
-        'https://astonishing-cuchufli-ed0e98.netlify.app',
-    ],
+    origin: (origin, callback) => {
+        if (
+            !origin ||
+            origin === 'http://localhost:5173' ||
+            origin === 'https://astonishing-cuchufli-ed0e98.netlify.app' ||
+            origin.endsWith('.vercel.app')
+        ) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
 }));
 
