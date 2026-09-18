@@ -19,6 +19,7 @@ app.post("/api/stripe", express.raw({ type: "application/json" }), stripeWebhook
 // Middleware
 app.use(cors({
     origin: [
+        'https://your-mart-by-nish.vercel.app/',
         'http://localhost:5173',                        
         'https://astonishing-cuchufli-ed0e98.netlify.app', 
     ],
