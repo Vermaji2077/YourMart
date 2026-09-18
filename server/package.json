@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "npx prisma generate",
-    "start": "npx tsx server.ts",
+    "start": "node dist/server.js",
+    
     "server": "nodemon --exec tsx server.ts",
     "build": "tsc",
     "seed": "tsx seed.ts"
